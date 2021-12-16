@@ -28,12 +28,8 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 @RequiredArgsConstructor
 @Tag(name = "feature controller", description = "feature controller for image metadata api")
 public class FeatureController {
-    private final FeatureService featureService;
 
-//    @Operation(summary = "Return all features")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Features returned successfully", response = String.class)
-//    })
+    private final FeatureService featureService;
 
     @Operation(summary = "Return all features")
     @ApiResponses(value = {
@@ -44,12 +40,6 @@ public class FeatureController {
         return ResponseEntity.ok().body(featureService.findAll());
     }
 
-//    @ApiOperation(value = "Return a feature by id")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Feature returned successfully", response = FeatureResponseDto.class),
-//            @ApiResponse(code = 404, message = "Feature not found.")
-//    })
-
     @Operation(summary = "Return a feature by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Feature returned successfully", content = {
@@ -59,12 +49,6 @@ public class FeatureController {
     public ResponseEntity<FeatureResponseDto> getFeature(@Parameter(description = "id of feature to be searched") @PathVariable("id") final UUID featureId) {
         return ResponseEntity.ok().body(featureService.findById(featureId));
     }
-
-//    @ApiOperation(value = "Return a quick look image by feature id")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Image returned successfully", response = byte[].class),
-//            @ApiResponse(code = 404, message = "Feature not found.")
-//    })
 
     @Operation(summary = "Return a feature by id")
     @ApiResponses(value = {
