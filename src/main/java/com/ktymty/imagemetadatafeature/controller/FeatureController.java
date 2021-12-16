@@ -50,7 +50,7 @@ public class FeatureController {
         return ResponseEntity.ok().body(featureService.findById(featureId));
     }
 
-    @Operation(summary = "Return a feature by id")
+    @Operation(summary = "Return a quick look image by feature id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Image returned successfully", content = {
                     @Content(mediaType = "image/png", schema = @Schema(implementation = byte[].class))}),
