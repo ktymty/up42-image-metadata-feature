@@ -1,5 +1,5 @@
 # Image Metadata Feature
-Image Metadata Feature simple backend application that is capable of working with image metadata, that is typically generated on the UP42 platform.
+Image Metadata Feature simple backend application that is capable of working with image metadata, that is typically generated on the platform.
 The goal is to expose three endpoints for listing features, retrieving a specific feature by its ID and to return an actual image from a base64 encoded string.
 
 [More details](UP42_backend_challenge.pdf)
@@ -40,7 +40,7 @@ Unit tests have been written with good code coverage.
     - **mapper**: This package contains the mapper for mapping from Feature model to FeatureResponse dto.
     - **model**: This package represents the data model for required fields from json.
     - **dto**: This package contains response object for feature.
-2. The data class has been built to read json source file and 
+2. The data class has been built to read json source file and parse to java object.
 
 ## API Endpoints
 1. **GET /features**
