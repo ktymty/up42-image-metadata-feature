@@ -20,7 +20,7 @@ The goal is to expose three endpoints for listing features, retrieving a specifi
 ```
 
 This will start the server at localhost:8080
-* API Documentation [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+* API Documentation [Swagger UI](http://localhost:8080/swagger-ui.html)
 
 ## Tech Stack
 

@@ -6,10 +6,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FeatureToFeatureResponseDtoMapper implements Converter<Feature, FeatureResponseDto> {
+public class FeatureToFeatureResponseCustomConverter implements Converter<Feature, FeatureResponseDto> {
     @Override
     public FeatureResponseDto convert(Feature feature) {
-
         return FeatureResponseDto.builder().id(feature.getProperties().getId())
                 .timestamp(feature.getProperties().getTimestamp())
                 .beginViewingDate(feature.getProperties().getAcquisition().getBeginViewingDate())

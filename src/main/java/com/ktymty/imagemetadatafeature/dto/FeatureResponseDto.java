@@ -1,22 +1,20 @@
 package com.ktymty.imagemetadatafeature.dto;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class FeatureResponseDto {
-    @NotNull
-    private UUID id;
-    private Long timestamp;
-    private Long beginViewingDate;
-    private Long endViewingDate;
-    private String missionName;
+    @NotNull UUID id;
+    Long timestamp;
+    Long beginViewingDate;
+    Long endViewingDate;
+    String missionName;
 }
