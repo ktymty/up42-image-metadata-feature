@@ -1,5 +1,5 @@
 # Image Metadata Feature
-Image Metadata Feature simple backend application that is capable of working with image metadata, that is typically generated on the platform.
+Image Metadata Feature simple backend application that is capable of working with image metadata, that is typically generated on UP42  platform.
 The goal is to expose three endpoints for listing features, retrieving a specific feature by its ID and to return an actual image from a base64 encoded string.
 
 [More details](UP42_backend_challenge.pdf)
