@@ -1,18 +1,17 @@
 package com.ktymty.imagemetadatafeature.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeatureAcquisitionProperties {
-    private Long beginViewingDate;
-    private Long endViewingDate;
-    private String missionName;
+    Long beginViewingDate;
+    Long endViewingDate;
+    String missionName;
 }

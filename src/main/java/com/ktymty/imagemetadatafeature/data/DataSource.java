@@ -48,6 +48,8 @@ public class DataSource {
     }
 
     public Optional<Feature> getFeatureById(UUID id) {
-        return getFeatures().stream().filter(f -> f.getProperties().getId().equals(id)).findAny();
+        return getFeatures().stream().
+                filter(f -> f.getProperties().getId().equals(id)).
+                findAny();
     }
 }

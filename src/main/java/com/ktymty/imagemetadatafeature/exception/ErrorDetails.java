@@ -1,20 +1,19 @@
 package com.ktymty.imagemetadatafeature.exception;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 
-@Data
+@Value
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorDetails {
-    private Date timestamp;
-    private HttpStatus error;
-    private String message;
-    private String details;
+    Date timestamp;
+    HttpStatus error;
+    String message;
+    String details;
 }

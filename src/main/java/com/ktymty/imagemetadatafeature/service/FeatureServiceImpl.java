@@ -4,7 +4,7 @@ import com.ktymty.imagemetadatafeature.data.DataSource;
 import com.ktymty.imagemetadatafeature.dto.FeatureResponseDto;
 import com.ktymty.imagemetadatafeature.dto.FeaturesResponseDto;
 import com.ktymty.imagemetadatafeature.exception.NotFoundException;
-import com.ktymty.imagemetadatafeature.mapper.FeatureToFeatureResponseDtoMapper;
+import com.ktymty.imagemetadatafeature.mapper.FeatureToFeatureResponseCustomConverter;
 import com.ktymty.imagemetadatafeature.model.Feature;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +20,24 @@ import static java.lang.String.format;
 @Service
 @RequiredArgsConstructor
 public class FeatureServiceImpl implements FeatureService {
-    private final FeatureToFeatureResponseDtoMapper mapper;
+    private final FeatureToFeatureResponseCustomConverter converter;
     private final DataSource dataSource;
 
     public FeaturesResponseDto findAll() {
         log.debug("Returning all features");
-        List<FeatureResponseDto> featureResponseDtos = dataSource.getFeatures().stream().map(mapper::convert).collect(Collectors.toList());
-        return FeaturesResponseDto.builder().features(featureResponseDtos).build();
+
+        List<FeatureResponseDto> featureResponseDtos = dataSource.getFeatures().stream()
+                .map(converter::convert)
+                .collect(Collectors.toList());
+
+        return FeaturesResponseDto.builder().
+                features(featureResponseDtos).
+                build();
     }
 
     public FeatureResponseDto findById(UUID id) {
         log.debug(format("Returning feature by id={%s}.", id));
-        return mapper.convert(getFeatureById(id));
+        return converter.convert(getFeatureById(id));
     }
 
     public byte[] findQuicklookByFeatureId(UUID id) {

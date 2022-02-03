@@ -20,16 +20,16 @@ import static org.hamcrest.Matchers.equalTo;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@DisplayName("FeatureDtoToFeatureResponseDtoMapper")
-class FeatureDtoToFeatureResponseMapperTest {
+@DisplayName("FeatureToFeatureResponseCustomConverter")
+class FeatureToFeatureResponseCustomConverterTest {
     @Autowired
     private DataSource dataSource;
 
-    private FeatureToFeatureResponseDtoMapper mapper;
+    private FeatureToFeatureResponseCustomConverter converter;
 
     @BeforeEach
     void setUp() {
-        mapper = new FeatureToFeatureResponseDtoMapper();
+        converter = new FeatureToFeatureResponseCustomConverter();
     }
 
     @AfterEach
@@ -43,7 +43,7 @@ class FeatureDtoToFeatureResponseMapperTest {
         FeatureResponseDto expected = FeatureResponseDto.builder().id(uuid).timestamp(1558155123786L).beginViewingDate(1558155123786L).endViewingDate(1558155148785L).missionName("Sentinel-1A").build();
         Optional<Feature> actualFeatureDto = dataSource.getFeatureById(uuid);
 
-        FeatureResponseDto actual = mapper.convert(actualFeatureDto.get());
+        FeatureResponseDto actual = converter.convert(actualFeatureDto.get());
 
         assertThat(actual, equalTo(expected));
     }

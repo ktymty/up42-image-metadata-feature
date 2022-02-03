@@ -1,23 +1,21 @@
 package com.ktymty.imagemetadatafeature.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Data
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeatureProperties {
-    @NotNull
-    private UUID id;
-    private Long timestamp;
-    private FeatureAcquisitionProperties acquisition;
-    private byte[] quicklook;
+    @NotNull UUID id;
+    Long timestamp;
+    FeatureAcquisitionProperties acquisition;
+    byte[] quicklook;
 }

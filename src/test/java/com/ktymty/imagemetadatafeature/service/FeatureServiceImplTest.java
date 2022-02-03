@@ -3,7 +3,7 @@ package com.ktymty.imagemetadatafeature.service;
 import com.ktymty.imagemetadatafeature.data.DataSource;
 import com.ktymty.imagemetadatafeature.dto.FeatureResponseDto;
 import com.ktymty.imagemetadatafeature.dto.FeaturesResponseDto;
-import com.ktymty.imagemetadatafeature.mapper.FeatureToFeatureResponseDtoMapper;
+import com.ktymty.imagemetadatafeature.mapper.FeatureToFeatureResponseCustomConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,18 +28,18 @@ class FeatureServiceImplTest {
     private DataSource dataSource;
 
     @Autowired
-    private FeatureToFeatureResponseDtoMapper mapper;
+    private FeatureToFeatureResponseCustomConverter converter;
 
 
     @BeforeEach
     void setUp() {
-        featureService = new FeatureServiceImpl(mapper, dataSource);
+        featureService = new FeatureServiceImpl(converter, dataSource);
     }
 
     @Test
     void whenFindAll_returnAllFeatures() {
         FeaturesResponseDto actual = featureService.findAll();
-        List<FeatureResponseDto> expected = dataSource.getFeatures().stream().map(mapper::convert).collect(Collectors.toList());
+        List<FeatureResponseDto> expected = dataSource.getFeatures().stream().map(converter::convert).collect(Collectors.toList());
         assertThat(actual.getFeatures(), equalTo(expected));
     }
 
@@ -47,7 +47,7 @@ class FeatureServiceImplTest {
     void whenFindById_withValidId_returnOneFeature() {
         UUID uuid = UUID.fromString("ca81d759-0b8c-4b3f-a00a-0908a3ddd655");
         FeatureResponseDto actual = featureService.findById(uuid);
-        FeatureResponseDto expected = dataSource.getFeatureById(uuid).map(mapper::convert).get();
+        FeatureResponseDto expected = dataSource.getFeatureById(uuid).map(converter::convert).get();
         assertThat(actual, equalTo(expected));
     }
 

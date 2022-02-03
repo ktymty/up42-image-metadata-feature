@@ -47,7 +47,7 @@ class FeatureControllerTest {
     @Test
     @DisplayName("should return list of features")
     void whenGetFeatures_returnsHTTP200_and_features() throws Exception {
-        MvcResult result = mockMvc.perform(get("/v1/features", 21L)
+        MvcResult result = mockMvc.perform(get("/v1/features")
                         .accept("application/json"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -67,7 +67,7 @@ class FeatureControllerTest {
     @Test
     @DisplayName("should return a feature when given a valid feature uuid")
     void whenGetFeature_returnsHTTP200_and_feature() throws Exception {
-        MvcResult result = mockMvc.perform(get("/v1/features/ca81d759-0b8c-4b3f-a00a-0908a3ddd655", 21L)
+        MvcResult result = mockMvc.perform(get("/v1/features/{id}", "ca81d759-0b8c-4b3f-a00a-0908a3ddd655")
                         .accept("application/json"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -85,7 +85,7 @@ class FeatureControllerTest {
     @Test
     @DisplayName("should respond with HTTP404 when feature id is not found")
     void whenGetFeature_withInvalidFeatureId_returnsHTTP404() throws Exception {
-        mockMvc.perform(get("/v1/features/ca81d759-1111-aaaa-2222-0908a3ddd655", 21L)
+        mockMvc.perform(get("/v1/features/{id}", "ca81d759-1111-aaaa-2222-0908a3ddd655")
                         .accept("application/json"))
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -95,7 +95,7 @@ class FeatureControllerTest {
     @DisplayName("should return with a image response when given a valid feature id")
     void whenGetQuickLook_withValidFeatureId_returnsHTTP200_and_byteImage() throws Exception {
         String uuid = "ca81d759-0b8c-4b3f-a00a-0908a3ddd655";
-        MvcResult result = mockMvc.perform(get(String.format("/v1/features/%s/quicklook", uuid), 21L)
+        MvcResult result = mockMvc.perform(get("/v1/features/{id}/quicklook", uuid)
                         .accept("image/png"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -111,8 +111,7 @@ class FeatureControllerTest {
     @Test
     @DisplayName("should respond with HTTP404 when requested with an invalid feature id")
     void whenGetQuickLook_withInvalidFeatureId_returnsHTTP404() throws Exception {
-        String uuid = "ca81d759-1111-aaaa-2222-0908a3ddd655";
-        mockMvc.perform(get(String.format("/v1/features/%s/quicklook", uuid), 21L))
+        mockMvc.perform(get("/v1/features/{id}/quicklook", "ca81d759-1111-aaaa-2222-0908a3ddd655"))
                 .andExpect(status().isNotFound())
                 .andReturn();
     }

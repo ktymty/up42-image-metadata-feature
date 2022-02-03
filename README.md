@@ -20,7 +20,7 @@ The goal is to expose three endpoints for listing features, retrieving a specifi
 ```
 
 This will start the server at localhost:8080
-* API Documentation [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+* API Documentation [Swagger UI](http://localhost:8080/swagger-ui.html)
 
 ## Tech Stack
 
@@ -145,3 +145,17 @@ The consumers of the api will not notice any change in case a new object is adde
 ```
 
 Optimization approach has been used for api `GET /features` to make it backward compatible.
+
+### Delivering images in part of the response as Base64 encoded strings
+Delivering images in part of the response as Base64 encoded strings is not always a good idea.
+Reasons:
+ - API response payloads are large. Over mobile networks, additional payload sizes matter. Larger payloads also mean more time for responses to be in flight and more time for (mobile) network drops.
+ - Base64 images are bloated. The size of the Base64 encoded image is approximately 30% larger than the original binary image. Even with gzip  sizes will still be larger if the binary images are compressed.
+ - User Experience is negatively impacted. By including all image data together in one API response, the app must receive all data before drawing anything on screen. Alternatively, when an app loads images separately from the API payload, the app can show the data from the API and then progressively load the images.
+ - CDN caching is harder.Contrary to image files, the Base64 strings inside an API response cannot be delivered via a CDN cache. The whole API response must be delivered by CDN.
+ - Image caching on the device is no longer possible.
+ - Content management becomes harder as most content management tools handle images as binary files.
+ 
+Possible use case for images as base64 encoded string
+ - While delivering thumbnails use a chunked transfer encoding which effectively streams the response so the client can process the Base64 encoded images as they arrive across the wire. Only good when use-case is centred around for fetching images but not mixed content api.
+ - Delivering slow-changing non-personalised data that includes small images. For example, loading partner logos, map pin images or category icons during app launch/restore. APIs delivering this type of data can easily be cached on a CDN and versioned to trigger updates. 
